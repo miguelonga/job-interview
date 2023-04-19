@@ -14,6 +14,13 @@ describe('HeroesService', () => {
   });
 
   it('should get all heroes', () => {
+    spyOn(service, '_getHeroes').and.returnValue([])
     expect(service.heroes()).toEqual([])
+  })
+
+  it('should get a heroe by id', () => {
+    let expectedHero = {'id': 1}
+    spyOn(service, '_getHeroes').and.returnValue([expectedHero])
+    expect(service.getById(1)).toEqual(expectedHero)
   })
 });
