@@ -23,4 +23,9 @@ describe('HeroesService', () => {
     spyOn(service, '_getHeroes').and.returnValue([expectedHero])
     expect(service.getById(1)).toEqual(expectedHero)
   })
+
+  it('should filter by name', () => {
+    spyOn(service, '_getHeroes').and.returnValue([{name: "Spiderman"}, {name: "Superhide"}])
+    expect(service.getByName("man")).toEqual([{name: "Spiderman"}])
+  })
 });

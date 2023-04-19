@@ -21,4 +21,10 @@ export class HeroesService {
       return hero.id === id
     })[0]
   }
+
+  getByName(text:string){
+    return this._getHeroes().filter(hero => {
+      return hero.name.includes(text)
+    })
+  }
 }
