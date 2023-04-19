@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Hero } from './models/hero.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HeroesService {
-  heroesData: any[] = []
+  heroesData: Hero[] = []
 
   constructor() { }
 
@@ -12,19 +13,23 @@ export class HeroesService {
     return this.heroesData
   }
 
-  heroes() {
+  heroes(): Hero[] {
     return this._getHeroes()
   }
 
-  getById(id:number){
+  getById(id:number): Hero {
     return this._getHeroes().filter(hero => {
       return hero.id === id
     })[0]
   }
 
-  getByName(text:string){
+  getByName(text:string): Hero[] {
     return this._getHeroes().filter(hero => {
       return hero.name.includes(text)
     })
+  }
+
+  create(hero: Hero) {
+    this.heroesData.push(hero)
   }
 }
