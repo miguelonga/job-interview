@@ -56,6 +56,8 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.store.dispatch(show())
+
       if(result.event == 'Add'){
         this.heroesService.create(result.data);
       }else if(result.event == 'Update'){
@@ -66,7 +68,9 @@ export class ListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.heroesService._getHeroes())
       this.table.renderRows();
       this.dataSource.paginator = this.paginator;
-
+      setTimeout(() => {
+        this.store.dispatch(hide())
+      },500)
     });
 
 
