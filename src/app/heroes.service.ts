@@ -38,7 +38,7 @@ export class HeroesService {
 
   create(hero: Hero) {
     hero.id = Date.now()
-    this.heroesData.push(hero)
+    this.heroesData.unshift(hero)
   }
 
   update(hero: Hero){

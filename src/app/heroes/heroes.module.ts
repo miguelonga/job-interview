@@ -7,6 +7,7 @@ import { ListComponent } from './list/list.component';
 import { FormsModule } from '@angular/forms';
 
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -23,6 +24,7 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     HeroesRoutingModule,
     FormsModule,
     MatTableModule,
+    MatPaginatorModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,

@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { HeroesService } from 'src/app/heroes.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 export interface Hero {
   name: string;
@@ -16,14 +17,19 @@ export interface Hero {
 })
 export class ListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'action'];
-  dataSource: Hero[] = [];
+  dataSource!: MatTableDataSource<Hero>;
 
   @ViewChild(MatTable,{static:true}) table!: MatTable<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(public dialog: MatDialog, public heroesService: HeroesService) {}
 
   ngOnInit(): void {
-    this.dataSource = this.heroesService._getHeroes()
+    this.dataSource = new MatTableDataSource(this.heroesService._getHeroes())
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   openDialog(action: string, obj: any) {
@@ -41,8 +47,10 @@ export class ListComponent implements OnInit {
       }else if(result.event == 'Delete'){
         this.heroesService.delete(result.data)
       }
-      this.dataSource = this.heroesService._getHeroes()
+      this.dataSource = new MatTableDataSource(this.heroesService._getHeroes())
       this.table.renderRows();
+      this.dataSource.paginator = this.paginator;
+
     });
 
 
