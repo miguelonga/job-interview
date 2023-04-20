@@ -5,7 +5,12 @@ import { Hero } from './models/hero.model';
   providedIn: 'root'
 })
 export class HeroesService {
-  heroesData: Hero[] = []
+  heroesData: Hero[] = [
+    {id: 1, name: 'Superman'},
+    {id: 2, name: 'Spiderman'},
+    {id: 3, name: 'Actionman'},
+    {id: 4, name: 'Superhide'}
+  ];
 
   constructor() { }
 
