@@ -4,6 +4,9 @@ import { ListComponent } from './list.component';
 import { Hero } from 'src/app/models/hero.model';
 import { HeroesModule } from '../heroes.module';
 import { By } from '@angular/platform-browser';
+import { MatProgressSpinner, MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { StoreModule } from '@ngrx/store';
+import { loadingReducer } from 'src/app/store/loading/loading.reducers';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -11,8 +14,13 @@ describe('ListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListComponent ],
-      imports: [ HeroesModule ]
+      declarations: [ ListComponent, MatProgressSpinner ],
+      imports: [ 
+        HeroesModule,
+        MatProgressSpinnerModule,
+        StoreModule.forRoot([]), 
+        StoreModule.forFeature("loading", loadingReducer) 
+      ]
     })
     .compileComponents();
 

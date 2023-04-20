@@ -6,6 +6,9 @@ import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { HeroesService } from 'src/app/heroes.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Store } from '@ngrx/store';
+import { LoadingState } from 'src/app/store/loading/loading-state';
+import { hide, show } from 'src/app/store/loading/loading.actions';
 
 export interface Hero {
   name: string;
@@ -24,7 +27,7 @@ export class ListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog, public heroesService: HeroesService) {}
+  constructor(public dialog: MatDialog, public heroesService: HeroesService, public store: Store<{loading: LoadingState}> ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.heroesService._getHeroes())
@@ -33,6 +36,10 @@ export class ListComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.store.dispatch(show())
+    setTimeout(() => {
+      this.store.dispatch(hide())
+    },1000)
   }
 
   applyFilter(filterValue: string) {
