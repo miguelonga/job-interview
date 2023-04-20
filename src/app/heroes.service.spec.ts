@@ -38,4 +38,21 @@ describe('HeroesService', () => {
 
     expect(service._getHeroes().length).toEqual(previousLength + 1)
   })
+
+  it('should update a hero', () => {
+    let hero = {id:1, name: 'Superman'}
+    service.heroesData = [hero]
+    let newName = 'SuperWoman'
+    service.update({id:1, name: newName})
+
+    expect(service.getById(1).name).toEqual(newName)
+  })
+
+  it('should delete a hero', () => {
+    let hero = {id:1, name: 'Superman'}
+    service.heroesData = [hero]
+    service.delete(hero)
+
+    expect(service.heroesData.length).toEqual(0)
+  })
 });

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { ListComponent } from './list.component';
 import { Hero } from 'src/app/models/hero.model';
@@ -36,4 +36,40 @@ describe('ListComponent', () => {
 
     expect(rows.length).toEqual(heroesFromService.length)
   })
+
+  it('should open dialog when click add button', () => {
+    spyOn(component, 'openDialog')
+    let addButton = fixture.debugElement.nativeElement.querySelector('#add')
+    addButton.click()
+
+    expect(component.openDialog).toHaveBeenCalled()
+    expect(component.openDialog).toHaveBeenCalledWith('Add', {})
+  })
+
+  it('should open dialog when click update button with the hero object', () => {
+    let hero = {id:1, name: 'Superman'}
+    spyOn(component.heroesService, '_getHeroes').and.returnValue([hero])
+    component.ngOnInit()
+    fixture.detectChanges()
+    spyOn(component, 'openDialog')
+    let updateButton = fixture.debugElement.nativeElement.querySelector('#update')
+    updateButton.click()
+
+    expect(component.openDialog).toHaveBeenCalled()
+    expect(component.openDialog).toHaveBeenCalledWith('Update', hero)
+  })
+
+  it('should open dialog for ask if be sure to delete when delete button clicked', () => {
+    let hero = {id:1, name: 'Superman'}
+    spyOn(component.heroesService, '_getHeroes').and.returnValue([hero])
+    component.ngOnInit()
+    fixture.detectChanges()
+    spyOn(component, 'openDialog')
+    let updateButton = fixture.debugElement.nativeElement.querySelector('#delete')
+    updateButton.click()
+
+    expect(component.openDialog).toHaveBeenCalled()
+    expect(component.openDialog).toHaveBeenCalledWith('Delete', hero)
+  })
+
 });

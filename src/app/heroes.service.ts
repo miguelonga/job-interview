@@ -6,10 +6,12 @@ import { Hero } from './models/hero.model';
 })
 export class HeroesService {
   heroesData: Hero[] = [
-    {id: 1, name: 'Superman'},
-    {id: 2, name: 'Spiderman'},
-    {id: 3, name: 'Actionman'},
-    {id: 4, name: 'Superhide'}
+    {id: 1682006041729, name: 'Superman'},
+    {id: 1682006046227, name: 'Spiderman'},
+    {id: 1682006050566, name: 'Actionman'},
+    {id: 1682006055493, name: 'Superhide'},
+    {id: 1682006059539, name: 'Superwoman'},
+    {id: 1682006063469, name: 'Spiderwoman'},
   ];
 
   constructor() { }
@@ -35,6 +37,22 @@ export class HeroesService {
   }
 
   create(hero: Hero) {
+    hero.id = Date.now()
     this.heroesData.push(hero)
+  }
+
+  update(hero: Hero){
+    this.heroesData = this.heroesData.filter((key,value)=>{
+      if(key.id == hero.id){
+        key.name = hero.name;
+      }
+      return true;
+    });
+  }
+
+  delete(hero: Hero){
+    this.heroesData = this.heroesData.filter((key,value)=>{
+      return key.id != hero.id;
+    });
   }
 }

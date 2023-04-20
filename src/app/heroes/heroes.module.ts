@@ -13,7 +13,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 
-
 @NgModule({
   declarations: [
     ListComponent,
