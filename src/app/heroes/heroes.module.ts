@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HeroesRoutingModule } from './heroes-routing.module';
 import { ListComponent } from './list/list.component';
@@ -21,6 +22,7 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
   ],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     HeroesRoutingModule,
     FormsModule,
     MatTableModule,
@@ -28,8 +30,7 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
-    MatInputModule
+    MatButtonModule
   ]
 })
 export class HeroesModule { }

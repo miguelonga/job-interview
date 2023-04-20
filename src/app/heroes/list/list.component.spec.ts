@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 
 import { ListComponent } from './list.component';
 import { Hero } from 'src/app/models/hero.model';
-import { MatDialogModule } from '@angular/material/dialog';
 import { HeroesModule } from '../heroes.module';
 import { By } from '@angular/platform-browser';
 
@@ -20,6 +19,7 @@ describe('ListComponent', () => {
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    fixture.whenStable()
   });
 
   it('should create', () => {
@@ -71,5 +71,4 @@ describe('ListComponent', () => {
     expect(component.openDialog).toHaveBeenCalled()
     expect(component.openDialog).toHaveBeenCalledWith('Delete', hero)
   })
-
 });
