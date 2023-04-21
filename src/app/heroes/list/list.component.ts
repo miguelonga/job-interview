@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { LoadingState } from 'src/app/store/loading/loading-state';
 import { hide, show } from 'src/app/store/loading/loading.actions';
+import { Router } from '@angular/router';
 
 export interface Hero {
   name: string;
@@ -27,7 +28,12 @@ export class ListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog, public heroesService: HeroesService, public store: Store<{loading: LoadingState}> ) {}
+  constructor(
+    public dialog: MatDialog, 
+    public heroesService: HeroesService, 
+    public store: Store<{loading: LoadingState}>,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.heroesService._getHeroes())
@@ -63,8 +69,10 @@ export class ListComponent implements OnInit {
       this._updateTable()
       this._simulateLoading()
     });
+  }
 
-
+  goToDetail(id: number){
+    this.router.navigate(['heroes', id])
   }
 
   private _updateTable(){

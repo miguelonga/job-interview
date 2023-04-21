@@ -15,12 +15,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import { UppercaseInputDirective } from './dialog-box/uppercase.directive';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
     ListComponent,
     DialogBoxComponent,
-    UppercaseInputDirective
+    UppercaseInputDirective,
+    DetailComponent
   ],
   imports: [
     CommonModule,
