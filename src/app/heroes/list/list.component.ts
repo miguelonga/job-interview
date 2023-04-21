@@ -36,10 +36,7 @@ export class ListComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.store.dispatch(show())
-    setTimeout(() => {
-      this.store.dispatch(hide())
-    },1000)
+    this._simulateLoading(3000)
   }
 
   applyFilter(filterValue: string) {
@@ -56,8 +53,6 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.store.dispatch(show())
-
       if(result.event == 'Add'){
         this.heroesService.create(result.data);
       }else if(result.event == 'Update'){
@@ -65,14 +60,23 @@ export class ListComponent implements OnInit {
       }else if(result.event == 'Delete'){
         this.heroesService.delete(result.data)
       }
-      this.dataSource = new MatTableDataSource(this.heroesService._getHeroes())
-      this.table.renderRows();
-      this.dataSource.paginator = this.paginator;
-      setTimeout(() => {
-        this.store.dispatch(hide())
-      },500)
+      this._updateTable()
+      this._simulateLoading()
     });
 
 
+  }
+
+  private _updateTable(){
+    this.dataSource = new MatTableDataSource(this.heroesService._getHeroes())
+    this.table.renderRows();
+    this.dataSource.paginator = this.paginator;
+  }
+
+  private _simulateLoading(time = 1000){
+    this.store.dispatch(show())
+    setTimeout(() => {
+      this.store.dispatch(hide())
+    },time)
   }
 }
